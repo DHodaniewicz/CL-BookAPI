@@ -2,13 +2,15 @@ package pl.coderslab.services;
 
 import org.springframework.stereotype.Component;
 import pl.coderslab.beans.Book;
+import pl.coderslab.interfaces.BookInterface;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
-public class MockBookService {
+public class MockBookService implements BookInterface {
     private List<Book> list;
     private static Long nextId = 5L;
 
@@ -25,19 +27,15 @@ public class MockBookService {
 
     }
 
-
-
     public List<Book> getAllBooks() {
         return this.list;
     }
 
-    public Book getBookById(long id) {
-        for (Book book : list) {
-            if (book.getId().equals(id)) {
-                return book;
-            }
-        }
-        return null;
+    @Override
+    public Optional<Book> getBookById(long id) {
+        return list.stream().
+                filter(book -> book.getId().equals(id)).
+                findFirst();
     }
 
     public void addBook(String isbn, String title, String publisher, String type, String author) {
@@ -47,8 +45,9 @@ public class MockBookService {
     }
 
     public void editBook(long id, String isbn, String title, String publisher, String type, String author) {
-        Book book = getBookById(id);
-        if (book != null) {
+
+        if (getBookById(id).isPresent()) {
+            Book book = getBookById(id).get();
             book.setIsbn(isbn);
             book.setTitle(title);
             book.setPublisher(publisher);
@@ -58,11 +57,10 @@ public class MockBookService {
     }
 
     public void deleteBook(long id) {
-        Book book = getBookById(id);
-        if (book != null) {
+        if (getBookById(id).isPresent()) {
+            Book book = getBookById(id).get();
             int index = list.indexOf(book);
             list.remove(index);
         }
     }
-
 }

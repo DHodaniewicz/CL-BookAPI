@@ -1,8 +1,10 @@
 package pl.coderslab.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import pl.coderslab.beans.Book;
 import pl.coderslab.services.MockBookService;
 
@@ -34,7 +36,11 @@ public class BookController {
 
     @RequestMapping("/{bookId}")
     public Book getBookById(@PathVariable long bookId) {
-        return mockBookService.getBookById(bookId);
+        return this.mockBookService.getBookById(bookId).orElseThrow(() -> {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "entity not found"
+            );
+        });
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
