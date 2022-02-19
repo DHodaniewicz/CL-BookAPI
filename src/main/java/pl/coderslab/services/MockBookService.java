@@ -46,11 +46,23 @@ public class MockBookService {
             nextId++;
     }
 
-    public void editBook(int id) {
-
+    public void editBook(long id, String isbn, String title, String publisher, String type, String author) {
+        Book book = getBookById(id);
+        if (book != null) {
+            book.setIsbn(isbn);
+            book.setTitle(title);
+            book.setPublisher(publisher);
+            book.setType(type);
+            book.setAuthor(author);
+        }
     }
 
-    public void deleteBook(int id) {
-
+    public void deleteBook(long id) {
+        Book book = getBookById(id);
+        if (book != null) {
+            int index = list.indexOf(book);
+            list.remove(index);
+        }
     }
+
 }

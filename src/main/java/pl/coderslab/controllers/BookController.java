@@ -33,7 +33,7 @@ public class BookController {
     }
 
     @RequestMapping("/{bookId}")
-    public Book getBookById(@PathVariable int bookId) {
+    public Book getBookById(@PathVariable long bookId) {
         return mockBookService.getBookById(bookId);
     }
 
@@ -42,4 +42,17 @@ public class BookController {
                          @RequestParam String type, @RequestParam String author) {
         mockBookService.addBook(isbn, title, publisher, type, author);
     }
+
+    @RequestMapping(value = "", method = RequestMethod.PUT)
+    public void editBook(@RequestParam int id, @RequestParam String isbn, @RequestParam  String title, @RequestParam String publisher,
+                         @RequestParam String type, @RequestParam String author) {
+        mockBookService.editBook(id, isbn, title, publisher, type, author);
+    }
+
+    @RequestMapping(value = "/{bookId}", method = RequestMethod.DELETE)
+    public void deleteBook(@PathVariable long bookId) {
+        mockBookService.deleteBook(bookId);
+    }
+
+
 }
