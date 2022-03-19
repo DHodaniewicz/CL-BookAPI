@@ -42,7 +42,7 @@
         <form:select path="type" items="${availableCategories}"/>
         <form:errors path="type"/>
     </p>
-    <input type="submit">
+    <input type="submit" value="Add">
 </form:form>
 </body>
 </html>

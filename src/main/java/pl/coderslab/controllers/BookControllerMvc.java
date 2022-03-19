@@ -5,16 +5,14 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.coderslab.entities.Book;
 import pl.coderslab.interfaces.BookService;
 
 import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin/books")
@@ -47,6 +45,32 @@ public class BookControllerMvc {
         bookService.addBook(book);
         return "redirect:/admin/books/all";
     }
+
+    @GetMapping("/edit/{id}")
+    public String editBookView(Model model, @PathVariable long id) {
+        Optional bookOptional = bookService.getBookById(id);
+        if (bookOptional.isEmpty()) {
+            model.addAttribute("book", new Book());
+        }
+        model.addAttribute("book", bookOptional.get());
+        return "books/update";
+    }
+
+    @PostMapping("/edit")
+    public String editBook(@Valid Book book, BindingResult result) {
+        if (result.hasErrors()){
+            return "books/update";
+        }
+        bookService.update(book);
+        return "redirect:/admin/books/all";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteBook(@PathVariable long id) {
+        bookService.deleteBook(id);
+        return "redirect:/admin/books/all";
+    }
+
 
     @ModelAttribute
     public void availableCategories(Model model) {
