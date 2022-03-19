@@ -1,14 +1,15 @@
 package pl.coderslab.services;
 
 import org.springframework.stereotype.Component;
-import pl.coderslab.beans.Book;
+import org.springframework.stereotype.Service;
+import pl.coderslab.entities.Book;
 import pl.coderslab.interfaces.BookService;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Component
+@Service
 public class MockBookService implements BookService {
     private List<Book> list;
     private static Long nextId = 5L;

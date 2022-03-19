@@ -1,17 +1,14 @@
 package pl.coderslab.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-import pl.coderslab.beans.Book;
+import pl.coderslab.entities.Book;
 import pl.coderslab.interfaces.BookService;
-import pl.coderslab.services.MockBookService;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 
 @RestController
@@ -20,7 +17,7 @@ public class BookController {
     private BookService bookService;
 
     @Autowired
-    public BookController(BookService bookService) {
+    public BookController(@Qualifier("mockBookService") BookService bookService) {
         this.bookService = bookService;
     }
 

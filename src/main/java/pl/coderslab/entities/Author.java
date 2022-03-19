@@ -1,4 +1,4 @@
-package pl.coderslab.beans;
+package pl.coderslab.entities;
 
 import org.springframework.stereotype.Component;
 

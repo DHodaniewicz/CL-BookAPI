@@ -1,7 +1,7 @@
 package pl.coderslab.services;
 
 import org.springframework.stereotype.Component;
-import pl.coderslab.beans.Author;
+import pl.coderslab.entities.Author;
 
 import java.util.ArrayList;
 import java.util.List;

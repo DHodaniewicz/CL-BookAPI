@@ -1,8 +1,10 @@
-package pl.coderslab.beans;
+package pl.coderslab.entities;
 
-import org.springframework.stereotype.Component;
+import org.hibernate.validator.constraints.ISBN;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 // @Component
 @Entity
@@ -11,10 +13,15 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @ISBN
     private String isbn;
+    @NotBlank
     private String title;
+    @NotBlank
     private String author;
+    @NotBlank
     private String publisher;
+    @NotBlank
     private String type;
 
     public Book(Long id, String isbn, String title, String author, String publisher, String type) {
