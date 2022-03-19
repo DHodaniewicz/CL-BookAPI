@@ -2,8 +2,14 @@ package pl.coderslab.beans;
 
 import org.springframework.stereotype.Component;
 
-@Component
+import javax.persistence.*;
+
+// @Component
+@Entity
+@Table(name = "books")
 public class Book {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String isbn;
     private String title;
